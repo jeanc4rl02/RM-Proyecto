@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'getSchwifty';
+    src:
+      
+        url('./assets/getSchwifty.ttf') format('truetype'),
+        url('./assets/getschwifty-webfont.woff2') format('woff2'),
+        url('./assets/getschwifty-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-rick {
+  font-family: 'getSchwifty', sans-serif !important;
+  
+}
