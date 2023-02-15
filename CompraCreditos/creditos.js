@@ -3,7 +3,12 @@ const { createApp } = Vue
 createApp({
   data() {
     return {
-      message: 'Hello Vue!'
+      amountOfPickles:0,
+    }
+  },
+  methods:{
+    getAmountOfPickles(e){
+      console.log(e.target)
     }
   }
 }).mount('#app')
