@@ -12,7 +12,7 @@
 </head>
 <body>
     <section id="app">
-      <h1 class="font-rick text-center display-1  m-md-5 m-3">¡Compre sus Pepinillos Rick!</h1>
+      <h1 class="font-rick text-center display-2  m-md-5 m-3">¡Compre sus Pepinillos Rick!</h1>
         <div class="container-lg">
             <div class="row">
                 <div class="card col-12 col-md-5 m-3 mb-5" >
@@ -20,18 +20,26 @@
                     <div class="card-body">
                         <h5 class="card-title">10 Pepinillos Rick</h5>
                         <h6 class="card-title">$ 5000 COP</h6>
-                        <a href="#" class="btn btn-primary" data-amount="10">Comprar</a>
+                        <a
+                          href="#"
+                          class="btn btn-primary"
+                          data-amount="10"
+                          data-value="5000"
+                          @click="getAmountOfPickles">Comprar</a>
                    </div>
                 </div>
-                <div class="col-1">
-
-                </div>
+               
                 <div class="card col-12 col-md-5 m-3 mb-5" >
                     <img class="img-fluid" src="./assets/img/pepinillos.jpg" class="card-img-top" alt="coins">
                     <div class="card-body">
                         <h5 class="card-title">20 Pepinillos Rick</h5>
                         <h6 class="card-title">$ 7.500 COP</h6>
-                        <a href="#" class="btn btn-primary" data-amount="20">Comprar</a>
+                        <a
+                          href="#"
+                          class="btn btn-primary"
+                          data-amount="20"
+                          data-value="7500"
+                          @click="getAmountOfPickles">Comprar</a>
                    </div>
                 </div>
                 
@@ -40,18 +48,52 @@
                     <div class="card-body">
                         <h5 class="card-title">30 Pepinillos Rick</h5>
                         <h6 class="card-title">$ 10.000 COP</h6>
-                        <a href="#" class="btn btn-primary" data-amount="30">Comprar</a>
+                        <a
+                          href="#"
+                          class="btn btn-primary"
+                          data-amount="30"
+                          data-value="10000"
+                          @click="getAmountOfPickles">Comprar</a>
                    </div>
                 </div>
-                <div class="col-1">
-
-                </div>
+                
                 <div class="card col-md-5 m-3 mb-5" >
                     <img class="img-fluid" src="./assets/img/pepinillos.jpg" class="card-img-top" alt="coins">
                     <div class="card-body">
                         <h5 class="card-title">50 Pepinillos Rick</h5>
                         <h6 class="card-title">$ 15.000 COP</h6>
-                        <a href="#" class="btn btn-primary" data-amount="50" @click="getAmountOfPickles">Comprar</a>
+                        <a
+                          href="#"
+                          class="btn btn-primary"
+                          data-amount="50"
+                          data-value="15000"
+                          @click="getAmountOfPickles">Comprar</a>
+                   </div>
+                </div>
+                <div class="card col-md-5 m-3 mb-5" >
+                    <img class="img-fluid" src="./assets/img/pepinillos.jpg" class="card-img-top" alt="coins">
+                    <div class="card-body">
+                        <h5 class="card-title">100 Pepinillos Rick</h5>
+                        <h6 class="card-title">$ 25.000 COP</h6>
+                        <a
+                          href="#"
+                          class="btn btn-primary"
+                          data-amount="100"
+                          data-value="25000"
+                          @click="getAmountOfPickles">Comprar</a>
+                   </div>
+                </div>
+                <div class="card col-md-5 m-3 mb-5" >
+                    <img class="img-fluid" src="./assets/img/pepinillos.jpg" class="card-img-top" alt="coins">
+                    <div class="card-body">
+                        <h5 class="card-title">200 Pepinillos Rick</h5>
+                        <h6 class="card-title">$ 45.000 COP</h6>
+                        <a
+                          href="#"
+                          class="btn btn-primary"
+                          data-amount="200"
+                          data-value="45000"
+                          @click="getAmountOfPickles">Comprar</a>
                    </div>
                 </div>
             </div>
