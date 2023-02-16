@@ -183,15 +183,33 @@
                         
                       </p>
                     </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                      </div>
+                    <div v-if="paymentMethod==='card'" class="mt-5">
+                        <div class="mb-3">
+                            <label for="cardName" class="form-label fw-bold">Nombre de la tarjeta</label>
+                            <input type="text" class="form-control" id="cardName" placeholder="Nombre en la tarjeta" >
+                        </div>
+                          <div class="mb-3">
+                            <label for="cardNumber" class="form-label fw-bold">Número de tarjeta</label>
+                            <input type="number" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000">
+                          </div>
+                          <div class="d-md-flex justify-content-between">
+                            <div class="mb-3 w-45">
+                                <label for="cvc" class="form-label fw-bold">CVC/CVV</label>
+                                <input type="number" class="form-control " id="cvc" placeholder="CVC">
+                              </div>
+                              <div class="mb-3 w-45">
+                                <label for="cvc" class="form-label fw-bold ">Fecha de vencimiento</label>
+                                <input type="date" class="form-control " id="cvc">
+                              </div>
+                          </div>
+                          
+                    </div>
                   </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Send message</button>
+                <div class="modal-footer justify-content-start">
+                  <button type="button" class="btn btn-primary px-4">Pagar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  
                 </div>
               </div>
             </div>
