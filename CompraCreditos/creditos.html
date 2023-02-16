@@ -143,8 +143,10 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">
+                  
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal">Continuar</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar</button>
+                  
                 </div>
               </div>
             </div>
@@ -153,7 +155,7 @@
 
 
 
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Segundo Modal</button>
+          <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Segundo Modal</button> -->
           <!-- Código segundo Modal -> El de la forma de pago -->
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -186,28 +188,33 @@
                     <div v-if="paymentMethod==='card'" class="mt-5">
                         <div class="mb-3">
                             <label for="cardName" class="form-label fw-bold">Nombre de la tarjeta</label>
-                            <input type="text" class="form-control" id="cardName" placeholder="Nombre en la tarjeta" >
+                            <input type="text" class="form-control" id="cardName" placeholder="Nombre en la tarjeta" v-model="cardName">
+                            <div  class=" text-danger fw-normal" v-if="!cardNameOk">Recuerde llenar el nombre de su tarjeta</div>
+                            
                         </div>
                           <div class="mb-3">
                             <label for="cardNumber" class="form-label fw-bold">Número de tarjeta</label>
-                            <input type="number" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000">
+                            <input type="number" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000" v-model="cardNumber">
+                            <div  class=" text-danger fw-normal" v-if="!cardOk">Recerde ingresar un numero de tarjeta válido.</div>
                           </div>
                           <div class="d-md-flex justify-content-between">
                             <div class="mb-3 w-45">
                                 <label for="cvc" class="form-label fw-bold">CVC/CVV</label>
-                                <input type="number" class="form-control " id="cvc" placeholder="CVC">
+                                <input type="number" class="form-control " id="cvc" placeholder="CVC" v-model="cvcNumber">
+                                <div  class=" text-danger fw-normal" v-if="!cvcOk">Recuerde que el CVC es un número positivo de 3 o 4 cifras.</div>
                               </div>
                               <div class="mb-3 w-45">
-                                <label for="cvc" class="form-label fw-bold ">Fecha de vencimiento</label>
-                                <input type="date" class="form-control " id="cvc">
+                                <label for="expiration-date" class="form-label fw-bold ">Fecha de vencimiento</label>
+                                <input type="date" class="form-control " id="expiration-date" v-model="expirationDate">
+                                <div  class=" text-danger fw-normal" v-if="!dateOk">La tarjeta ya expiró o no se ingresó su fecha</div>
                               </div>
                           </div>
                           
                     </div>
                   </form>
                 </div>
-                <div class="modal-footer justify-content-start">
-                  <button type="button" class="btn btn-primary px-4">Pagar</button>
+                <div class="modal-footer justify-content-start" v-if="paymentMethod!==''">
+                  <button type="button" class="btn btn-primary px-4"   @click="makePayment">Pagar</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                   
                 </div>
