@@ -60,14 +60,13 @@ let vm = new Vue({
         })
         this.errorReg = false;
         localStorage.setItem("users", JSON.stringify(this.users));
-        window.location.reload();
+        // window.location.reload();
         } else {
           this.errorReg = true;
         }
       },
     },
     created(){
-
     },
     mounted(){
 
