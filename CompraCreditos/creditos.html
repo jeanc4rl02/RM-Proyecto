@@ -123,38 +123,85 @@
             </div>
             
         </div>
+
+        <!-- Código del primer modal -> el del resumen -->
+        <div class="modal fade border" id="payment-gateway" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fw-bold font-rick display-6" id="exampleModalLabel">Resumen</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-around">
+                    <div class="w-50">
+                        <p class="fw-bold">Pepinillos: {{amountOfPickles}}</p>
+                        <p class="fw-bold">Valor: ${{valuePickles.toLocaleString('es-ES',{style:'currency',currency:'COP',maximumFractionDigits: 0})}}</p>
+                    </div>
+                    <div class="w-25">
+                        <img src="./assets/img/pepinillo.jpg" alt="pickle" class="w-50">
+                        <img src="./assets/img/pepinillo2.jpg" alt="pickle" class="w-50">
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-start">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Segundo Modal</button>
+          <!-- Código segundo Modal -> El de la forma de pago -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fw-bold font-rick display-6" id="exampleModalLabel">Método de pago: </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="payment-method" class="col-form-label fw-bold">Seleccione el de su preferencia:</label>
+                      <select class="form-select" aria-label="Default select example" id="payment-method" v-model="paymentMethod">
+                        <option selected disabled>--Modo de pago--</option>
+                        <option value="card">Tarjeta de crédito/debito</option>
+                        <option value="paypal">Paypal</option>
+                      </select>
+                    </div>
+                    <div class="mb-3" v-if="paymentMethod==='paypal'">
+                      <p>Para completar la transacción, te enviaremos a los servidores seguros de PayPal.
+                      </p>
+                      <p>
+                        ⚠️ Lo sentimos, PayPal no procesa pagos en COP. Por tanto, tu compra se hará en USD.
+                        <span class="fw-bold">
+                            PayPal te cobrará un importe de {{(valuePickles/4820).toLocaleString('eu-EU',{style:'currency',currency:'USD',maximumFractionDigits: 2})}}.
+                        </span>
+                        
+                      </p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                      </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         
     </section>
 
 
 
-<div class="modal fade" id="payment-gateway" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="exampleModalLabel">Resumen:</h5>
-        <p></p>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="./creditos.js"></script>

@@ -5,7 +5,8 @@ createApp({
     return {
       accumulatedPickles:0, //Pepinillos acumulados, debe venir de Storage.
       amountOfPickles:0, //Papinillos que el usuario quiere comprar
-      valuePickles:0
+      valuePickles:0,
+      paymentMethod:''
     }
   },
   methods:{
@@ -13,8 +14,8 @@ createApp({
       /*
       this.accumulatedPickles += e.target.dataset.amount //Una vez finalizado el pago.
       localStorage.setItem("accumulatedPickles",this.accumulatedPickles) */
-      this.amountOfPickles=e.target.dataset.amount
-      this.valuePickles=e.target.dataset.value
+      this.amountOfPickles=Number(e.target.dataset.amount)
+      this.valuePickles=Number(e.target.dataset.value)
       const salesData={
         pickles:this.amountOfPickles,
         value:this.valuePickles
