@@ -12,6 +12,7 @@ let vm = new Vue({
       modalUsername: null,
       modalPassword: null,
       errorUser: null,
+      errorUsername: false,
     },
     methods: {
       verifyUser() {
@@ -32,7 +33,7 @@ let vm = new Vue({
           })
           this.error = false;
           setTimeout(function() {
-              window.location.href = "../Landing/index.html";
+              window.location.href = "./Landing/index.html";
             }, 2000);
           
         } else {
@@ -50,12 +51,14 @@ let vm = new Vue({
         return this.users.some(user=>user.username===this.modalUsername) //Retorna verdadero si lo encuentra y falso si no lo encuentra
       },
       pushUser(){
-        // FALTAN VALIDACIONES <-------------------- 
-        // let userValidation = this.users.find((u) => u.username == this.modalUsername);
-        // console.log(userValidation)
-        /**Aquí va la validación del usuario */
+        let userValidation = this.users.some((u) => u.username == this.modalUsername)
+        if(userValidation){
+          this.errorUsername = true
+        }
 
-        if(this.modalName != null && this.modalLastname != null && this.modalUsername != null && this.modalPassword != null){
+        if(this.modalName != null && this.modalLastname != null && this.modalUsername != null && this.modalPassword != null && this.modalPassword.length >= 4 && !userValidation){
+          this.errorUsername = false;
+          this.errorReg = false;
           this.users = [];
           this.users = JSON.parse(localStorage.getItem("users")) || []
           if(!this.validateUsername()){

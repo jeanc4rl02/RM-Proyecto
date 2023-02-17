@@ -6,12 +6,7 @@
       name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Raleway|Ubuntu"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./css/styles.css" />
-    <link rel="shortcut icon" href="./img/logouwu.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./Login/css/styles.css" />
     <title>Login</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -33,15 +28,16 @@
                   <div class="d-flex flex-row-reverse bd-highlight" style="width: 400px;">
                     </div>
                     <div class="form-body col-10">
-                      <h2 class="modal-title font-rick text-center" style="margin-top: -30px; margin-bottom: 30px;">Registro</h2>
+                      <h2 class="modal-title font-rick text-center">Registro</h2>
                       <label for="name">Nombre(s)</label>
                       <input class="form-control mb-3" type="text" id="name" placeholder="Ingrese su nombre" v-model="modalName">
                       <label for="lastname">Apellido(s)</label>
                       <input class="form-control mb-3" type="text" id="lastname" placeholder="Ingrese su apellido" v-model="modalLastname">
                       <label for="username">Usuario</label>
                       <input class="form-control mb-3" type="text" id="username" placeholder="Ingrese su usuario" v-model="modalUsername">
+                      <p v-show="errorUsername" style="color:brown;">Este usuario ya se encuentra registrado</p>    
                       <label for="model">Contraseña</label>
-                      <input class="form-control mb-3" type="password" id="model" placeholder="Ingrese su contraseña" v-model="modalPassword">
+                      <input class="form-control mb-3" type="password" id="model" placeholder="Ingrese su contraseña(mín. 4 caracteres)" v-model="modalPassword">
                       <li v-show="errorReg" style="color:brown;">Llene todos los campos.</li>                      
                       <div class="text-center">
                         <input class="btn btn-primary" type="button" value="Envíar" style="margin-top: 10px;" @click.prevent="pushUser">
@@ -57,7 +53,7 @@
   <div class="card mb-3" style="width: 60rem;">
     <div class="row g-0 d-flex align-items-center">
       <div class="col-lg-3 d-none d-lg-flex">
-        <img src="./assets/img/rick-and-morty-login.jpg" alt="Rick and Morty"
+        <img src="./Login/assets/img/rick-and-morty-login.jpg" alt="Rick and Morty"
           class="rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
       </div>
       <div class="col-lg-8">

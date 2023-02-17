@@ -32,7 +32,14 @@
               <h5 style="margin-left: 50px;">{{client[0].name}} {{client[0].lastname}}</h5>
             </div>
           </nav>
+          <div class="alert alert-success text-center fixed-bottom" role="alert" v-show="successBuy">
+              Compra realizada con éxito. Consulta tus productos en "Mis cartas".
+          </div>
+          <div class="alert alert-danger text-center fixed-bottom" role="alert" v-show="insufficientCredits">
+            ¡Ups! Hubo un fallo al realizar la compra. Verifica que tienes los Pickles suficientes.
+          </div>
           <div class="row row-cols-1 row-cols-md-4 g-4">
+            
             <div class="col" v-for="(c, index) in arrayCards">
               <div class="col" :id="index">
                 <div class="card">
@@ -46,7 +53,8 @@
                   <p class="card-text"><b>Especie:</b> {{c.specie}}</p>
                   <p class="card-text"><b>Género:</b> {{c.gender}}</p>
                   <div class="col">
-                    <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="buyCard(index)">Comprar</button>
+                    <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="buyCard(index)" v-if="c.auction">Subastar</button>
+                    <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="buyCard(index)" v-else>Comprar</button>
                   </div>
                   <!-- <div class="col" v-else>
                     <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="">Comprar</button>
