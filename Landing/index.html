@@ -20,7 +20,7 @@
                   <a class="nav-link" href="">Home <span class="sr-only">(productos disponibles)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Mis cartas</a>
+                  <a class="nav-link" href="../Cards/index.html">Mis cartas</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="../CompraCreditos/creditos.html">Comprar pickles</a>
@@ -45,21 +45,15 @@
                 <div class="card">
                 <img :src="c.image" class="card-img-top"
                   :alt="c.name" />
-                <div class="card-body">
-                  <h5 class="card-title">{{c.name}}</h5>
+                <div class="card-body text-center">
+                  <h5 class="d-flex justify-content-around">{{c.name}}<span><img src="./assets/img/pickle.png" alt="" style="width: 20px;">{{c.cardPrice}}</span></h5>
                   <p class="card-text"><b>Estado:</b> {{c.status}}</p>
-                  <!-- <p class="card-text"><b>Locación:</b> {{c.location}}</p>
-                  <p class="card-text"><b>Origen:</b> {{c.origin}}</p> -->
                   <p class="card-text"><b>Especie:</b> {{c.specie}}</p>
                   <p class="card-text"><b>Género:</b> {{c.gender}}</p>
                   <div class="col">
                     <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="buyCard(index)" v-if="c.auction">Subastar</button>
                     <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="buyCard(index)" v-else>Comprar</button>
                   </div>
-                  <!-- <div class="col" v-else>
-                    <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="">Comprar</button>
-                  </div> -->
-
                 </div>
               </div>
               </div>

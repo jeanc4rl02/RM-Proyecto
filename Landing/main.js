@@ -31,8 +31,8 @@ var app = new Vue({
                     gender: u.gender,
                     auction: boolean,
                     cardPrice: price,
+                    buyDate: ""
                 })
-                ;
             })
             this.arrayCards = aux;
             localStorage.setItem("cards", JSON.stringify(this.arrayCards))
@@ -41,10 +41,16 @@ var app = new Vue({
         buyCard(index){
             let card = this.arrayCards.filter((c) => c.id == index + 1);
             if(this.client[0].accumulatedPickles >= card[0].cardPrice){
+                let date = new Date()
+                let year = date.getFullYear();
+                let month = date.getMonth()+1;
+                let day = date.getDate();
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                card[0].buyDate = `${day}/${month}/${year} ${hours}:${minutes}`
                 this.successBuy = true;
                 this.insufficientCredits = false;
                 this.client[0].accumulatedPickles -= card[0].cardPrice;
-                console.log(this.client[0].accumulatedPickles)
                 this.client[0].cards.push(card)
                 localStorage.setItem("client",JSON.stringify(this.client))
                 const index = this.users.map(user => user.username).indexOf(this.client[0].username)
