@@ -6,6 +6,8 @@ var app = new Vue({
       insufficientCredits: false,
       successBuy: false,
       users:[],
+      offer:0,
+      showForm:false,
     },
     methods: {
         async getData(){
@@ -66,7 +68,64 @@ var app = new Vue({
         },
         getRandomInt(max) {
             return Math.floor(Math.random() * max);
-          }
+        },
+        showFormOffer(index){
+          this.showForm=true
+          let card = this.arrayCards.filter((c) => c.id == index + 1);
+          let price=card[0].cardPrice
+          localStorage.setItem("price",price)
+          localStorage.setItem("index",index)
+        },
+        analizeOffer(){
+            //Este es el precio mímimo de venta 
+            let index=Number(localStorage.getItem("index"))
+            let card = this.arrayCards.filter((c) => c.id == index + 1);
+            let basePrice=Number(localStorage.getItem("price"))*2
+            console.log("Precio base",basePrice)
+            console.log("Pepinillos acumulados",this.client[0].accumulatedPickles)
+            if(this.offer>=basePrice && this.client[0].accumulatedPickles >=basePrice){
+                    let date = new Date()
+                    let year = date.getFullYear();
+                    let month = date.getMonth()+1;
+                    let day = date.getDate();
+                    let hours = date.getHours();
+                    let minutes = date.getMinutes();
+                    card[0].buyDate = `${day}/${month}/${year} ${hours}:${minutes}`
+                    // this.successBuy = true;
+                    // this.insufficientCredits = false;
+                    this.client[0].accumulatedPickles -= this.offer;
+                    this.client[0].cards.push(card)
+                    localStorage.setItem("client",JSON.stringify(this.client))
+                    const index = this.users.map(user => user.username).indexOf(this.client[0].username)
+                    this.users[index]=this.client[0]
+                    localStorage.setItem("users",JSON.stringify(this.users))
+                    this.showForm=false
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Compra en subasta exitosa',
+                        showConfirmButton: false,
+                        timer: 2000
+                      })
+                } else {
+                    // this.successBuy = false;
+                    // this.insufficientCredits = true;
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'La oferta es demasiado baja o no tiene fondos para realizarla',
+                       
+                      })
+                      this.showForm=false
+                    
+                }
+            
+
+            
+
+
+
+        }
     },
     created(){
         if(localStorage.getItem("cards") != null){
