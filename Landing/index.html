@@ -12,20 +12,51 @@
 
     <div id="app">
         <div class="container-sm">
-          <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col" v-for="c in arrayCards">
-              <div class="card">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="margin: 10px 0px; padding: 15px;">
+            <a class="navbar-brand font-rick" href="#">Market-Pickles</a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="">Home <span class="sr-only">(productos disponibles)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Mis cartas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Comprar pickles</a>
+                </li>
+              </ul>
+            </div>
+            <div class="d-flex justify-content-between" style="color:white;">
+              <h5>{{client[0].accumulatedPickles}}</h5><img src="./assets/img/pickle.png" alt="" style="width: 30px;">
+              <h5 style="margin-left: 50px;">{{client[0].name}} {{client[0].lastname}}</h5>
+            </div>
+          </nav>
+          <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col" v-for="(c, index) in arrayCards">
+              <div class="col" :id="index">
+                <div class="card">
                 <img :src="c.image" class="card-img-top"
                   :alt="c.name" />
                 <div class="card-body">
                   <h5 class="card-title">{{c.name}}</h5>
                   <p class="card-text"><b>Estado:</b> {{c.status}}</p>
-                  <p class="card-text"><b>Locación:</b> {{c.location}}</p>
-                  <p class="card-text"><b>Origen:</b> {{c.origin}}</p>
+                  <!-- <p class="card-text"><b>Locación:</b> {{c.location}}</p>
+                  <p class="card-text"><b>Origen:</b> {{c.origin}}</p> -->
                   <p class="card-text"><b>Especie:</b> {{c.specie}}</p>
                   <p class="card-text"><b>Género:</b> {{c.gender}}</p>
+                  <div class="col">
+                    <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="buyCard(index)">Comprar</button>
+                  </div>
+                  <!-- <div class="col" v-else>
+                    <button type="button" class="btn btn-primary btn-block mb-3 col-12" @click.prevent="">Comprar</button>
+                  </div> -->
+
                 </div>
               </div>
+              </div>
+              
+              
             </div>
           </div>
       </div>
