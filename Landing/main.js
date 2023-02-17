@@ -5,6 +5,7 @@ var app = new Vue({
       client: null,
       insufficientCredits: false,
       successBuy: false,
+      users:[],
     },
     methods: {
         async getData(){
@@ -16,7 +17,7 @@ var app = new Vue({
         updateLocalStorage(){
             let aux = [];
             this.arrayCards.map(u => {
-                let price = this.getRandomInt(100);
+                let price = this.getRandomInt(50);
                 let boolean = false;
                 this.getRandomInt(2) == 1 ? boolean = true : boolean = false;
                 aux.push({
@@ -45,6 +46,11 @@ var app = new Vue({
                 this.client[0].accumulatedPickles -= card[0].cardPrice;
                 console.log(this.client[0].accumulatedPickles)
                 this.client[0].cards.push(card)
+                localStorage.setItem("client",JSON.stringify(this.client))
+                const index = this.users.map(user => user.username).indexOf(this.client[0].username)
+                this.users[index]=this.client[0]
+                localStorage.setItem("users",JSON.stringify(this.users))
+                
             } else {
                 this.successBuy = false;
                 this.insufficientCredits = true;
@@ -63,5 +69,6 @@ var app = new Vue({
             this.getData(); 
         }
         this.client = JSON.parse(localStorage.getItem("client"));
+        this.users = JSON.parse(localStorage.getItem("users"));
     }
   })
