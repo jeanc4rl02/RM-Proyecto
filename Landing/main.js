@@ -30,7 +30,7 @@ var app = new Vue({
                 ;
             })
             this.arrayCards = aux;
-            localStorage.setItem("users", JSON.stringify(this.arrayCards))
+            localStorage.setItem("cards", JSON.stringify(this.arrayCards))
             console.log(this.arrayCards)
         },
         buyCard(index){

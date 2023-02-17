@@ -18,6 +18,11 @@ createApp({
       cardNumber:'',
       cvcNumber:'',
       expirationDate:'',
+
+      //Cliente logeado
+      client:null,
+      //Usuarios registrados
+      users:null,
     }
   },
   methods:{
@@ -71,7 +76,13 @@ createApp({
       const rightInformation=this.validateData()
       if(rightInformation){
         this.accumulatedPickles += this.amountOfPickles //Una vez finalizado el pago.
-        localStorage.setItem("accumulatedPickles",this.accumulatedPickles) 
+        this.client[0].accumulatedPickles=this.accumulatedPickles
+        localStorage.setItem("client",JSON.stringify(this.client)) 
+        //Ahora actualizo esos mismos pepinillos pero en los usuarios registrados
+        const index = this.users.map(user => user.username).indexOf(this.client[0].username)
+        this.users[index]=this.client[0]
+        localStorage.setItem("users",JSON.stringify(this.users)) 
+        
         //Hecha con éxito la transacción, se procede a borrar el formulario y resetear el formulario.
         this.cardName='' 
         this.cardNumber=''
@@ -79,6 +90,12 @@ createApp({
         this.expirationDate=''
         this.paymentMethod=''
         this.closeModal()
+        Swal.fire({
+          icon: 'success',
+          title: `Venta de Pepinillos Rick Exitosa`,
+          showConfirmButton: false,
+          timer: 1800
+        })
       }else{
         return
       }
@@ -86,7 +103,12 @@ createApp({
     makePaymentPaypal(){
       //Por ahora sin validaciones en Paypal, hace la compra directamente.
       this.accumulatedPickles += this.amountOfPickles //Una vez finalizado el pago.
-      localStorage.setItem("accumulatedPickles",this.accumulatedPickles)
+      this.client[0].accumulatedPickles=this.accumulatedPickles
+      localStorage.setItem("client",JSON.stringify(this.client)) 
+      //Ahora actualizo esos mismos pepinillos pero en los usuarios registrados
+      const index = this.users.map(user => user.username).indexOf(this.client[0].username)
+      this.users[index]=this.client[0]
+      localStorage.setItem("users",JSON.stringify(this.users)) 
        //Hecha con éxito la transacción, se procede a borrar el formulario y resetear el formulario.
        this.cardName='' 
        this.cardNumber=''
@@ -94,6 +116,12 @@ createApp({
        this.expirationDate=''
        this.paymentMethod=''
        this.closeModal()
+       Swal.fire({
+        icon: 'success',
+        title: `Venta de Pepinillos Rick Exitosa`,
+        showConfirmButton: false,
+        timer: 1800
+      })
     },
     makePayment(){
       (this.paymentMethod==='card')?this.makePaymentCard():this.makePaymentPaypal()
@@ -103,5 +131,10 @@ createApp({
       const modal = bootstrap.Modal.getInstance(myModalEl)
       modal.hide();
     }
+  },
+  created(){
+    this.client = JSON.parse(localStorage.getItem("client"));
+    this.accumulatedPickles=this.client[0].accumulatedPickles
+    this.users=JSON.parse(localStorage.getItem("users"));
   }
 }).mount('#app')

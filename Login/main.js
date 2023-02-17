@@ -15,6 +15,7 @@ let vm = new Vue({
     },
     methods: {
       verifyUser() {
+       
         const userValidation = this.users.find((u) => u.username == this.userEntered);
         const passwordValidation = this.users.find((u) => u.password == this.passwordEntered);
   
@@ -30,8 +31,8 @@ let vm = new Vue({
             timer: 1800
           })
           this.error = false;
-  setTimeout(function() {
-              window.location = "#";
+          setTimeout(function() {
+              window.location.href = "../Landing/index.html";
             }, 2000);
           
         } else {
@@ -45,30 +46,58 @@ let vm = new Vue({
           })
         }
       },
+      validateUsername(){
+        return this.users.some(user=>user.username===this.modalUsername) //Retorna verdadero si lo encuentra y falso si no lo encuentra
+      },
       pushUser(){
         // FALTAN VALIDACIONES <-------------------- 
         // let userValidation = this.users.find((u) => u.username == this.modalUsername);
         // console.log(userValidation)
+        /**Aquí va la validación del usuario */
+
         if(this.modalName != null && this.modalLastname != null && this.modalUsername != null && this.modalPassword != null){
           this.users = [];
           this.users = JSON.parse(localStorage.getItem("users")) || []
-          this.users.push({
-            name: this.modalName,
-            lastname: this.modalLastname,
-            username: this.modalUsername,
-            password: this.modalPassword,
-            accumulatedPickles: 0,
-            cards: []
-        })
-        this.errorReg = false;
-        localStorage.setItem("users", JSON.stringify(this.users));
-        window.location.reload();
+          if(!this.validateUsername()){
+              this.users.push({
+                name: this.modalName,
+                lastname: this.modalLastname,
+                username: this.modalUsername,
+                password: this.modalPassword,
+                accumulatedPickles: 0,
+                cards: []
+              })
+              Swal.fire({
+                icon: 'success',
+                title: `Usuario registrado correctamente`,
+                showConfirmButton: false,
+                timer: 1800
+              })
+              this.errorReg = false;
+              localStorage.setItem("users", JSON.stringify(this.users));
+              setTimeout(function() {
+                window.location.reload();
+              }, 1500);
+            
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'Registro fallido',
+                text: 'El usuario que está tratando de ingresar ya existe en el sistema',
+                showConfirmButton: false,
+                timer: 3500
+              })
+            }
+        
         } else {
           this.errorReg = true;
         }
       },
     },
     created(){
+      if(this.users===null){
+        this.users=[]
+      }
     },
     mounted(){
 
