@@ -10,6 +10,11 @@ var app = new Vue({
       showForm:false,
     },
     methods: {
+        logout() {
+            localStorage.removeItem("client");
+            localStorage.removeItem("name");
+            window.location = "../index.html";
+          },
         async getData(){
             await fetch('https://rickandmortyapi.com/api/character/')
             .then(res => res.json())
