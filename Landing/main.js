@@ -66,7 +66,12 @@ var app = new Vue({
         },
         getRandomInt(max) {
             return Math.floor(Math.random() * max);
-          }
+        },
+        logout() {
+            localStorage.removeItem("client");
+            localStorage.removeItem("name");
+            window.location = "../index.html";
+          },
     },
     created(){
         if(localStorage.getItem("cards") != null){

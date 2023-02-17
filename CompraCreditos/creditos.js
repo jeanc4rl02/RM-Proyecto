@@ -130,7 +130,12 @@ createApp({
       const myModalEl = document.getElementById('exampleModal');
       const modal = bootstrap.Modal.getInstance(myModalEl)
       modal.hide();
-    }
+    },
+    logout() {
+      localStorage.removeItem("client");
+      localStorage.removeItem("name");
+      window.location = "../index.html";
+    },
   },
   created(){
     this.client = JSON.parse(localStorage.getItem("client"));

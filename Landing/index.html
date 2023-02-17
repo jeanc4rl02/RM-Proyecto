@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing</title>
-    <link rel="stylesheet" href="./css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
 
@@ -31,6 +34,7 @@
               <h5>{{client[0].accumulatedPickles}}</h5><img src="./assets/img/pickle.png" alt="" style="width: 30px;">
               <h5 style="margin-left: 50px;">{{client[0].name}} {{client[0].lastname}}</h5>
             </div>
+            <button type="button" class="btn btn-danger d-flex border border-1" style="margin-left: 10px;" @click="logout"><i class="bi bi-box-arrow-left"></i></button>
           </nav>
           <div class="alert alert-success text-center fixed-bottom" role="alert" v-show="successBuy">
               Compra realizada con éxito. Consulta tus productos en "Mis cartas".

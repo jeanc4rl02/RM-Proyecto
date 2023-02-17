@@ -4,6 +4,11 @@ var app = new Vue({
       client: null,
     },
     methods: {
+      logout() {
+        localStorage.removeItem("client");
+        localStorage.removeItem("name");
+        window.location = "../index.html";
+      },
     },
     created(){
         this.client = JSON.parse(localStorage.getItem("client"));
