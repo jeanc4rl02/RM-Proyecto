@@ -2,6 +2,8 @@ var app = new Vue({
     el: '#app',
     data: {
       arrayCards: [],
+      auction: false,
+      client: null,
     },
     methods: {
         async getData(){
@@ -22,6 +24,8 @@ var app = new Vue({
                     specie: u.species,
                     location: u.location.name,
                     gender: u.gender,
+                    auction: false,
+                    cardPrice: 0,
                 })
                 ;
             })
@@ -29,8 +33,14 @@ var app = new Vue({
             localStorage.setItem("users", JSON.stringify(this.arrayCards))
             console.log(this.arrayCards)
         },
+        buyCard(index){
+            let card = this.arrayCards.filter((c) => c.id == index + 1);
+            this.client[0].cards.push(card)
+            console.log(card)
+        }
     },
     created(){
         this.getData();
+        this.client = JSON.parse(localStorage.getItem("client"));
     }
   })

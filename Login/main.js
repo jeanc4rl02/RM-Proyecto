@@ -21,7 +21,7 @@ let vm = new Vue({
         if (passwordValidation && userValidation) {
           let client = this.users.filter((u) => u.username == this.userEntered);
           localStorage.setItem("name", client[0].name);
-          localStorage.setItem("client", client);
+          localStorage.setItem("client", JSON.stringify(client));
           console.log(localStorage.getItem("client"));
           Swal.fire({
             icon: 'success',
@@ -57,10 +57,12 @@ let vm = new Vue({
             lastname: this.modalLastname,
             username: this.modalUsername,
             password: this.modalPassword,
+            accumulatedPickles: 0,
+            cards: []
         })
         this.errorReg = false;
         localStorage.setItem("users", JSON.stringify(this.users));
-        // window.location.reload();
+        window.location.reload();
         } else {
           this.errorReg = true;
         }
