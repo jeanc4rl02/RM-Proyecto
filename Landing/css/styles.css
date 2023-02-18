@@ -42,9 +42,20 @@
   border-radius: 5px;
   width: 50%;
 }
+.btn-close-form{
+  position: fixed;
+  z-index:3;
+  top:52%;
+  left: 40%;
+}
 
 @media(max-width:768px){
   .auction-form{
     width: 100%;
     left: 0%;
-  }}
+  }
+  .btn-close-form{
+    top:50%;
+    left: 40%;
+  }
+}

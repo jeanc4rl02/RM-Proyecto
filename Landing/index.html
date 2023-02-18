@@ -20,15 +20,24 @@
         <div class="container-sm">
          
           <form class=" auction-form" v-if="showForm" @submit.prevent="analizeOffer">
+          <div class="mx-auto w-50" v-if="alert">
+              <h4 class="text-danger">¡Atención... Es tu último intento!</h4>
+              <img src="./assets/img/desesperados.jpg" alt="" class="w-75">
+          </div>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Oferta:</label>
-              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="offer">
+              <input type="number" class="form-control w-75" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="offer">
               <div id="emailHelp" class="form-text">Digita la oferta que propones en pepinillos Rick.</div>
             </div>
-            
-            <button type="submit" class="btn btn-primary">Ofertar</button>
-          </form>
+            <h6>Intentos Restantes: {{3-auctionOpportunities}}</h6>
+              <div class="d-flex justify-content-between align-items-center">
+                <button type="submit" class="btn btn-primary" >Ofertar</button>
+                <p class="btn btn-danger " @click="offerCanceled" >Dejar de ofertar</p>
+              </div>
+           
 
+          </form>
+          
           <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="margin: 10px 0px; padding: 15px;">
             <a class="navbar-brand font-rick " href="#">Market-Pickles</a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
