@@ -9,7 +9,8 @@ var app = new Vue({
       offer:0,
       showForm:false,
       auctionOpportunities:0, //Estas son las oportunidades que tenemos en la subasta.
-      alert:false
+      alert:false,
+      cardPrice:0, //Este es el valor que sale en el modal de la subasta
     },
     methods: {
         logout() {
@@ -77,12 +78,23 @@ var app = new Vue({
             return Math.floor(Math.random() * max);
         },
         showFormOffer(index){
+        let card = this.arrayCards.filter((c) => c.id == index + 1);
+        let price=card[0].cardPrice
+        this.cardPrice=price
+        localStorage.setItem("price",price)
+        localStorage.setItem("card",JSON.stringify(card))
+        if(this.client[0].accumulatedPickles < this.cardPrice){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No tiene fondos suficientes para ofertar por esta carta, recuerde comprar más pepinillos en nuestra sección de comprar pickles',
+                
+                })
+            return
+        }
           this.showForm=true
-          let card = this.arrayCards.filter((c) => c.id == index + 1);
-          let price=card[0].cardPrice
-          localStorage.setItem("price",price)
-        //   localStorage.setItem("index",index)
-          localStorage.setItem("card",JSON.stringify(card))
+          
+        
         },
         analizeOffer(){
             
@@ -95,6 +107,7 @@ var app = new Vue({
                   this.auctionOpportunities++
                   return
             }
+       
             if(this.auctionOpportunities===1){
                 this.alert=true
             } 
@@ -104,10 +117,10 @@ var app = new Vue({
           
             //Este es el precio mímimo de venta para las dos primeras iteraciones.
             // let index=Number(localStorage.getItem("index"))
-            let card = JSON.parse(localStorage.getItem("card"));
-            let basePrice=Number(localStorage.getItem("price"))*2
+            let card = JSON.parse(localStorage.getItem("card"))
+            let basePrice=Number(localStorage.getItem("price"))*1.2
             
-            if(this.offer>=basePrice && this.client[0].accumulatedPickles >=basePrice){
+            if(this.offer>=basePrice && this.client[0].accumulatedPickles >=this.offer){
                     let date = new Date()
                     let year = date.getFullYear();
                     let month = date.getMonth()+1;
@@ -133,13 +146,18 @@ var app = new Vue({
                       })
                       this.alert=false
                       this.auctionOpportunities=0
-                } else {
-                    // this.successBuy = false;
-                    // this.insufficientCredits = true;
+                } else if(this.offer<basePrice){
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'La oferta es demasiado baja o no tiene fondos para realizarla',
+                        text: 'La oferta es demasiado baja, mejórala un poco',
+                       
+                      })
+                } else if(this.offer>=basePrice && this.client[0].accumulatedPickles<this.offer){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'La oferta que usted propone, supera a los pepinillos con los que usted cuenta actualmente, reconsidere su aferta o adquiera más pepinillos Rick',
                        
                       })
                 }
@@ -150,7 +168,7 @@ var app = new Vue({
             
             // let index=Number(localStorage.getItem("index"))
             let card = JSON.parse(localStorage.getItem("card"))
-            let basePrice=Number(localStorage.getItem("price")) //Como precio le dejamos el mismo que tenía al ser el último intento.
+            let basePrice=Number(localStorage.getItem("price"))*1.2; //Como precio le dejamos el mismo que tenía al ser el último intento.
             
             if(this.offer>=basePrice && this.client[0].accumulatedPickles >=basePrice){
                     let date = new Date()
@@ -172,7 +190,7 @@ var app = new Vue({
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
-                        title: 'Te aceptamos la oferta al ser este tu último intento',
+                        title: 'Aceptamos tu oferta, compra exitosa',
                         showConfirmButton: false,
                         timer: 3000
                       })
