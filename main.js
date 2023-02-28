@@ -68,7 +68,8 @@ let vm = new Vue({
                 username: this.modalUsername,
                 password: this.modalPassword,
                 accumulatedPickles: 0,
-                cards: []
+                cards: [],
+                global:[]
               })
               Swal.fire({
                 icon: 'success',
