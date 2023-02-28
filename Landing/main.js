@@ -59,6 +59,7 @@ var app = new Vue({
                 let day = date.getDate();
                 let hours = date.getHours();
                 let minutes = date.getMinutes();
+                minutes=(minutes.toString().length===1)?`0${minutes}`:minutes
                 card[0].buyDate = `${day}/${month}/${year} ${hours}:${minutes}`
                 this.successBuy = true;
                 this.insufficientCredits = false;
@@ -101,6 +102,7 @@ var app = new Vue({
                 })
             return
         }
+        this.auctionOpportunities=0
           this.showForm=true
           
         
@@ -113,8 +115,15 @@ var app = new Vue({
                     title: 'Oops...',
                     text: 'La oferta debe tener un número positivo de pepinillos',
                   })
-                  this.auctionOpportunities++
-                  return
+                this.auctionOpportunities++
+                if(this.auctionOpportunities===2){
+                    this.alert=true
+                } 
+                if(this.auctionOpportunities===3){
+                    this.showForm=false 
+                    this.alert=false
+                }
+                return
             }
        
             if(this.auctionOpportunities===1){
@@ -127,7 +136,7 @@ var app = new Vue({
             //Este es el precio mímimo de venta para las dos primeras iteraciones.
             // let index=Number(localStorage.getItem("index"))
             let card = JSON.parse(localStorage.getItem("card"))
-            let basePrice=Number(localStorage.getItem("price"))*1.2
+            let basePrice=Number(localStorage.getItem("price"))*1.2 //20% del valor de la subasta.
             
             if(this.offer>=basePrice && this.client[0].accumulatedPickles >=this.offer){
                     let date = new Date()
@@ -136,19 +145,28 @@ var app = new Vue({
                     let day = date.getDate();
                     let hours = date.getHours();
                     let minutes = date.getMinutes();
+                    minutes=(minutes.toString().length===1)?`0${minutes}`:minutes
                     card[0].buyDate = `${day}/${month}/${year} ${hours}:${minutes}`
+                    
                     // this.successBuy = true;
                     // this.insufficientCredits = false;
                     this.client[0].accumulatedPickles -= this.offer;
-                    this.client[0].global.push(card[0])
+                    // this.client[0].global.push(card[0])
                     let i = this.client[0].cards.map(c => c.id).indexOf(card[0].id)
                     if(i != -1 ){
                     this.client[0].cards[i].cant ++
                     } else {
                     this.client[0].cards.push(card[0])
                     }
+                    
+                     /***************************************/
+                     localStorage.setItem("card",JSON.stringify(card))
+                     let cardGlobal=JSON.parse(localStorage.getItem("card"))
+                     cardGlobal[0].cardPrice=this.offer
+                     this.client[0].global.push(cardGlobal[0])
+                     /**************************************/
                     localStorage.setItem("client",JSON.stringify(this.client))
-                    localStorage.setItem("global",JSON.stringify(this.global))
+                    // localStorage.setItem("global",JSON.stringify(this.global))
                     const index = this.users.map(user => user.username).indexOf(this.client[0].username)
                     this.users[index]=this.client[0]
                     localStorage.setItem("users",JSON.stringify(this.users))
@@ -193,16 +211,27 @@ var app = new Vue({
                     let day = date.getDate();
                     let hours = date.getHours();
                     let minutes = date.getMinutes();
+                    minutes=(minutes.toString().length===1)?`0${minutes}`:minutes
                     card[0].buyDate = `${day}/${month}/${year} ${hours}:${minutes}`
                     // this.successBuy = true;
                     // this.insufficientCredits = false;
                     this.client[0].accumulatedPickles -= this.offer;
+                    
+                 
                     let i = this.client[0].cards.map(c => c.id).indexOf(card[0].id)
                     if(i != -1 ){
                     this.client[0].cards[i].cant ++
                     } else {
                     this.client[0].cards.push(card[0])
                     }
+
+                    /***************************************/
+                    localStorage.setItem("card",JSON.stringify(card))
+                    let cardGlobal=JSON.parse(localStorage.getItem("card"))
+                    cardGlobal[0].cardPrice=this.offer
+                    this.client[0].global.push(cardGlobal[0])
+                    /**************************************/
+                    
                     localStorage.setItem("client",JSON.stringify(this.client))
                     const index = this.users.map(user => user.username).indexOf(this.client[0].username)
                     this.users[index]=this.client[0]
