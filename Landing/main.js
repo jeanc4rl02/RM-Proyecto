@@ -71,6 +71,7 @@ var app = new Vue({
                     this.client[0].cards.push(card[0])
                 }
                 localStorage.setItem("client",JSON.stringify(this.client))
+                localStorage.setItem("global",JSON.stringify(this.global))
                 const index = this.users.map(user => user.username).indexOf(this.client[0].username)
                 this.users[index]=this.client[0]
                 localStorage.setItem("users",JSON.stringify(this.users))
@@ -139,8 +140,15 @@ var app = new Vue({
                     // this.successBuy = true;
                     // this.insufficientCredits = false;
                     this.client[0].accumulatedPickles -= this.offer;
-                    this.client[0].cards.push(card)
+                    this.client[0].global.push(card[0])
+                    let i = this.client[0].cards.map(c => c.id).indexOf(card[0].id)
+                    if(i != -1 ){
+                    this.client[0].cards[i].cant ++
+                    } else {
+                    this.client[0].cards.push(card[0])
+                    }
                     localStorage.setItem("client",JSON.stringify(this.client))
+                    localStorage.setItem("global",JSON.stringify(this.global))
                     const index = this.users.map(user => user.username).indexOf(this.client[0].username)
                     this.users[index]=this.client[0]
                     localStorage.setItem("users",JSON.stringify(this.users))
@@ -189,7 +197,12 @@ var app = new Vue({
                     // this.successBuy = true;
                     // this.insufficientCredits = false;
                     this.client[0].accumulatedPickles -= this.offer;
-                    this.client[0].cards.push(card)
+                    let i = this.client[0].cards.map(c => c.id).indexOf(card[0].id)
+                    if(i != -1 ){
+                    this.client[0].cards[i].cant ++
+                    } else {
+                    this.client[0].cards.push(card[0])
+                    }
                     localStorage.setItem("client",JSON.stringify(this.client))
                     const index = this.users.map(user => user.username).indexOf(this.client[0].username)
                     this.users[index]=this.client[0]
